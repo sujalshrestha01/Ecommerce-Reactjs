@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useFilter } from "./FilterContext";
 
 interface Product {
   category: string;
@@ -8,6 +9,19 @@ interface FetchResponse {
 }
 
 const Sidebar = () => {
+  const {
+    searchQuery,
+    setSearchQuery,
+    selectedCategory,
+    setSelectedCategory,
+    minPrice,
+    setMinPrice,
+    maxPrice,
+    setMaxPrice,
+    keyword,
+    setKeyword,
+  } = useFilter();
+
   const [categories, setCategories] = useState<string[]>([]);
   const [keywords] = useState<string[]>([
     "apple",
@@ -33,6 +47,20 @@ const Sidebar = () => {
     fetchCategories();
   }, []);
 
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+  };
+  const handleKeywordClick = (keyword: string) => {
+    setKeyword(keyword);
+  };
+  const handleReset = () => {
+    setSearchQuery("");
+    setMinPrice(undefined);
+    setMaxPrice(undefined);
+    setSelectedCategory("");
+    setKeyword("");
+  };
+
   return (
     <div className="w-44 h-screen px-2">
       <h1 className="mb-3 text-2xl font-bold">Store</h1>
@@ -41,6 +69,8 @@ const Sidebar = () => {
           <input
             type="text"
             placeholder="Search Product"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="border border-gray-500 w-full rounded px-2 mb-2"
           />
           <div className="flex justify-center items-center gap-2">
@@ -48,12 +78,16 @@ const Sidebar = () => {
               type="text"
               placeholder="Min"
               className="border border-gray-500 px-5 py-1 w-full"
+              value={minPrice ?? ""}
+              onChange={(e) => setMinPrice(Number(e.target.value))}
               name=""
               id=""
             />
             <input
               type="text"
               placeholder="Max"
+              value={maxPrice ?? ""}
+              onChange={(e) => setMaxPrice(Number(e.target.value))}
               className="border border-gray-500 px-5 py-1 w-full"
               name=""
               id=""
@@ -71,6 +105,8 @@ const Sidebar = () => {
                 type="radio"
                 name="category"
                 value={category}
+                onChange={() => handleCategoryChange(category)}
+                checked={selectedCategory === category}
                 className="mr-2 w-4 h-4"
                 id=""
               />
@@ -86,6 +122,7 @@ const Sidebar = () => {
             {keywords.map((keyword, i) => (
               <button
                 key={i}
+                onClick={() => handleKeywordClick(keyword)}
                 className="px-3 py-1 text-[15px] border text-left border-gray-300 w-full hover:bg-gray-200 "
               >
                 {keyword.toUpperCase()}
@@ -94,7 +131,10 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <button className="bg-black text-white w-full cursor-pointer ">
+        <button
+          onClick={handleReset}
+          className="bg-black text-white w-full cursor-pointer "
+        >
           Reset
         </button>
       </section>
