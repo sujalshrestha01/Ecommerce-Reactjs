@@ -1,15 +1,17 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import MainContent from "./components/MainContent";
+import ProductPage from "./components/ProductPage";
 
 function App() {
   return (
     <Router>
-      <div className="flex h-screen">
+      <div className="flex h-screen w-full">
       <Sidebar />
-      <div>
+      <div className="">
         <Routes>
           <Route path='/' element={<MainContent/>}/>
+          <Route path="/product/:id" element={<ProductPage/>} />
         </Routes>
       </div>
       </div>
