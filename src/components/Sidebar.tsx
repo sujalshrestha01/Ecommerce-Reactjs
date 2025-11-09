@@ -62,7 +62,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-44 h-screen px-2">
+    <div className="w-[15%] h-screen px-2">
       <h1 className="mb-3 text-2xl font-bold">Store</h1>
       <section className="flex  flex-col gap-4">
         <div className="">

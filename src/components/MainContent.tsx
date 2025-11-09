@@ -91,7 +91,10 @@ const MainContent = () => {
     <section className=" ">
       <div className="">
         <div className="relative ">
-          <button className="border rounded-xl px-4 py-2 flex items-center" onClick={()=>setDropdownOpen(!dropdownOpen)}>
+          <button
+            className="border rounded-xl px-4 py-2 flex items-center"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
             <Tally3 className="mr-2" />
             {filter === "all"
               ? "Filter"
@@ -125,6 +128,7 @@ const MainContent = () => {
           <div className="grid grid-cols-4 gap-4 mb-6">
             {filteredProducts.map((product) => (
               <BookCard
+                key={product.id}
                 id={product.id}
                 title={product.title}
                 image={product.thumbnail}
@@ -143,8 +147,15 @@ const MainContent = () => {
 
             <div className="flex gap-3">
               {getPaginationButtons().map((page) => (
-                <button key={page} className={` px-3 border-gray-300 border  rounded-full ${page===currentPage?"bg-black  text-white ":" hover:bg-gray-300"}`} onClick={() => handlePageChange(page) 
-                }>
+                <button
+                  key={page}
+                  className={` px-3 border-gray-300 border  rounded-full ${
+                    page === currentPage
+                      ? "bg-black  text-white "
+                      : " hover:bg-gray-300"
+                  }`}
+                  onClick={() => handlePageChange(page)}
+                >
                   {page}
                 </button>
               ))}
@@ -153,7 +164,7 @@ const MainContent = () => {
             <button
               disabled={currentPage === totalPages}
               onClick={() => handlePageChange(currentPage + 1)}
-               className="px-3 py-1 border border-gray-300 rounded-2xl text-gray-500 hover:bg-gray-300"
+              className="px-3 py-1 border border-gray-300 rounded-2xl text-gray-500 hover:bg-gray-300"
             >
               Next
             </button>
