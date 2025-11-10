@@ -31,7 +31,7 @@ const ProductPage = () => {
     <div>
         <button onClick={()=>navigate(-1)} className='px-2 py-1 bg-black text-white rounded '>Back</button>
 
-        <div className='mt-7 w-[500px] px-6 '>
+        <div className='mt-7 w-full px-6 '>
             <img className='w-[300px]' src={product.images[0]} alt="" />
             <h2 className='font-bold text-xl'>{product.title} </h2>
             <p className='text-gray-600'>{product.description} </p>

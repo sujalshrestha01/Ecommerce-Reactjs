@@ -9,13 +9,15 @@ interface BookCardProps {
 
 const BookCard: React.FC<BookCardProps> = ({ id, title, image, price }) => {
   return (
-    <div className="w-48  bg-gray-300 px-4 py-1 flex flex-col">
+    <div className=" border-gray-300 border bg-gray-200 rounded-xl  px-4 py-1 flex flex-col">
       <Link to={`/product/${id}`}>
-        <img
-          src={image}
-          className="h-20 flex justify-self-center mb-2"
-          alt=""
-        />
+   
+          <img
+            src={image}
+            className="h-20 flex justify-self-center mb-2"
+            alt=""
+          />
+ 
       </Link>
       <h3 className="font-bold text-[15px]">{title}</h3>
       <p>${price}</p>

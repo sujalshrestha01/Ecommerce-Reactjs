@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { FilterProvider, useFilter } from "./FilterContext";
-import { ClockFading, SaudiRiyal, Tally3, Underline } from "lucide-react";
+import {  useFilter } from "./FilterContext";
+import {  Tally3} from "lucide-react";
 import axios from "axios";
 import BookCard from "./BookCard";
 
+
+
 const MainContent = () => {
-  const { searchQuery, selectedCategory, minPrice, maxPrice, keyword } =
+  const { searchQuery, selectedCategory, minPrice, maxPrice, keyword,setKeyword } =
     useFilter();
   const [products, setProducts] = useState([]);
   const [filter, setFilter] = useState("all");
@@ -19,6 +21,7 @@ const MainContent = () => {
     }`;
 
     if (keyword) {
+     
       url = `https://dummyjson.com/products/search?q=${keyword}`;
     }
 
@@ -35,6 +38,7 @@ const MainContent = () => {
   const getFilteredProducts = () => {
     let filteredProducts = products;
     if (selectedCategory) {
+      setKeyword('')
       filteredProducts = filteredProducts.filter(
         (product) => product.category === selectedCategory
       );
@@ -88,21 +92,23 @@ const MainContent = () => {
     return buttons;
   };
   return (
-    <section className=" ">
-      <div className="">
-        <div className="relative ">
+    <section className="sm:mt-2  mt-10">
+      <div className="flex flex-col items-end">
+        <div className=" mb-2  fixed top-2 ">
+
+        <div className="relative rounded-xl bg-white ">
           <button
-            className="border rounded-xl px-4 py-2 flex items-center"
+            className="border  rounded-xl text-[14px] sm:text-[16px] border-gray-500  px-1 sm:px-4 py-1 flex items-center "
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
-            <Tally3 className="mr-2" />
+            <Tally3 className=" sm:mr-2" />
             {filter === "all"
               ? "Filter"
-              : filter.charAt(0).toLowerCase() + filter.slice(1)}
+              : filter.toLowerCase()}
           </button>
 
           {dropdownOpen && (
-            <div className="absolute bg-white border-gray-300 rounded w-full">
+            <div onClick={()=>setDropdownOpen(!dropdownOpen)} className="absolute bg-white border-gray-300 rounded w-30 ">
               <button
                 onClick={() => setFilter("cheap")}
                 className="block px-4 py-2 w-full text-left hover:bg-gray-200"
@@ -110,13 +116,13 @@ const MainContent = () => {
                 cheap
               </button>
               <button
-                onClick={() => setFilter("Expensive")}
+                onClick={() => setFilter("expensive")}
                 className="block px-4 py-2 w-full text-left hover:bg-gray-200"
               >
                 Expensive
               </button>
               <button
-                onClick={() => setFilter("Popular")}
+                onClick={() => setFilter("popular")}
                 className="block px-4 py-2 w-full text-left hover:bg-gray-200"
               >
                 Popular
@@ -124,8 +130,9 @@ const MainContent = () => {
             </div>
           )}
         </div>
-        <div className=" ">
-          <div className="grid grid-cols-4 gap-4 mb-6">
+        </div>
+        <div className=" mt-10">
+          <div className="grid md:grid-cols-4 grid-cols-3 gap-4 mb-6">
             {filteredProducts.map((product) => (
               <BookCard
                 key={product.id}
