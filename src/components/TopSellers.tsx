@@ -14,7 +14,7 @@ const TopSellers = () => {
         const response = await fetch("https://randomuser.me/api/?results=5");
         const data = await response.json();
 
-        const authorsData: Author[] = data.results.map((user: any) => ({
+        const authorsData: Author[] = data.results.map((user:any) => ({
           name: `${user.name.first} ${user.name.last}`,
           isFollowing: false,
           image: user.picture.medium,
@@ -27,7 +27,7 @@ const TopSellers = () => {
     fetchData();
   }, []);
 
-  const handleFollow = (index) => {
+  const handleFollow = (index:number) => {
     setAuthors((prev) =>
       prev.map((author, i) =>
         i === index

@@ -5,11 +5,19 @@ import axios from "axios";
 import BookCard from "./BookCard";
 
 
+type Product = {
+  id: string;
+  title: string;
+  price: number;
+  thumbnail: string;
+  category: string;
+  rating: number;
+};
 
 const MainContent = () => {
   const { searchQuery, selectedCategory, minPrice, maxPrice, keyword,setKeyword } =
     useFilter();
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[] >([]);
   const [filter, setFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
